@@ -14,6 +14,7 @@ const SignupPage = () => {
         password:'',
         repeatedPassword: ''
     })
+    const [redirect, setRedirect] = useState(false)
     const handleOnChange = event => {
         const { name, value } = event.target;
         setUser({ ...user, [name]: value });
@@ -35,7 +36,7 @@ const SignupPage = () => {
             })
 
             if(response.ok){
-                <Redirect to='/login'></Redirect>
+                setRedirect(true)
             }
         }catch(error){
             console.log(error)
@@ -97,6 +98,7 @@ const SignupPage = () => {
                     <IonTitle class='footer-title'>Already have an account? <Link to='/login'>Login</Link></IonTitle>
                 </IonToolbar>
             </IonFooter>
+            {redirect? <Redirect to='/login'></Redirect>:null}
         </IonPage>
   )
 }

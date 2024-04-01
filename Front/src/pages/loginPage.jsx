@@ -12,6 +12,7 @@ const loginPage = () => {
         email:'',
         password:''
     })
+    const [redirect, setRedirect] = useState(false)
     const handleOnChange = event => {
         const { name, value } = event.target;
         setUser({ ...user, [name]: value });
@@ -30,7 +31,7 @@ const loginPage = () => {
             })
 
             if(response.ok){
-                <Redirect to='/home'/>
+                setRedirect(true)
             }
         }catch(error){
             console.log(error)
@@ -78,6 +79,7 @@ const loginPage = () => {
                     <IonTitle class='footer-title'>Don't have an account? <Link to='/signup'>Signup</Link></IonTitle>
                 </IonToolbar>
         </IonFooter>
+        {redirect? <Redirect to='/home'></Redirect>:null}
     </IonPage>
   )
 }
