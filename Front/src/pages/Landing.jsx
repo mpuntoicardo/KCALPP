@@ -1,8 +1,9 @@
-import { IonButton, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonImg, IonPage, IonRow, IonTitle } from '@ionic/react'
+import { IonButton, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonImg, IonNavLink, IonPage, IonRow, IonTitle } from '@ionic/react'
 import React from 'react'
-import Landing_SVG from '../components/Landing_SVG'
+import Landing_SVG from '../components/Landing_SVG.jsx'
 
 import './Landing_Module_css.css'
+import SignupPage from './signupPage.jsx'
 
 const Landing = () => {
   return (
@@ -19,24 +20,22 @@ const Landing = () => {
         </div>
       </IonContent>
       <IonFooter>
-        <div class='footer'>
           <IonGrid>
               <IonRow class="ion-justify-content-center">
                 <IonCol size='6' class="ion-text-center">
-                <IonButton color='light' shape='round' fill='solid' expand='full'>
+                <IonButton color='light' shape='round' fill='solid' expand='full' routerLink='/login'>
                   <strong>Login</strong>
                 </IonButton>
                 </IonCol>
               </IonRow>
               <IonRow class="ion-justify-content-center">
                 <IonCol size='6' class="ion-text-center">
-                <IonButton color='light' shape='round' fill='outline' expand='full'>
-                  <strong>Register</strong>
-                </IonButton>
+                    <IonButton color='light' shape='round' fill='outline' expand='full' routerLink='/signup'>
+                      <strong>Register</strong>
+                    </IonButton>
                 </IonCol>
               </IonRow>
           </IonGrid>
-        </div>
       </IonFooter>
       </IonPage>
   )
