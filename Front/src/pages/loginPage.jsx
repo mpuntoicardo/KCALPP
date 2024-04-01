@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Input from '../components/Input'
 import { IonButton, IonContent, IonGrid, IonPage, IonRow, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonCol, IonFooter } from '@ionic/react';
-import { navigate } from 'ionicons/icons';
-import {Link} from 'react-router-dom'
+import {Link,Redirect} from 'react-router-dom'
 
 import './signupPage.css'
 import Landing_SVG from '../components/Landing_SVG';
@@ -31,7 +30,7 @@ const loginPage = () => {
             })
 
             if(response.ok){
-                navigate('/home')
+                <Redirect to='/home'/>
             }
         }catch(error){
             console.log(error)

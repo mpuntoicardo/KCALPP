@@ -1,6 +1,6 @@
 import { IonCol, IonPage, IonButton, IonContent, IonGrid, IonRow, IonHeader, IonToolbar, IonBackButton, IonButtons, IonTitle, IonFooter, IonNavLink } from '@ionic/react'
 import React, { useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 import Input from '../components/Input'
 import './signupPage.css'
@@ -35,7 +35,7 @@ const SignupPage = () => {
             })
 
             if(response.ok){
-                navigate('/login')
+                <Redirect to='/login'></Redirect>
             }
         }catch(error){
             console.log(error)
