@@ -6,6 +6,9 @@ import Input from '../components/Input'
 import './signupPage.css'
 import Landing_SVG from '../components/Landing_SVG'
 
+const URL = "http://localhost:5000/register"
+
+
 const SignupPage = () => {
     const [user, setUser] = useState({
         email:'',
@@ -26,7 +29,7 @@ const SignupPage = () => {
             if(user.password!==user.repeatedPassword){
                 console.log('Contraseñas distintas')
             }
-            const response = await fetch('TODO/URL',{
+            const response = await fetch(URL,{
                 method: 'POST',
                 mode:'cors',
                 headers:{

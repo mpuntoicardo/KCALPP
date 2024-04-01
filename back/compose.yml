@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  app:
+    volumes:
+      - type: bind
+        source: ./app
+        target: /app
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+
+  db:
+    image: mysql:8.3
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 30s
+      retries: 10
+      start_period: 5s
+    ports:
+      - "3307:3306"
+    env_file:
+      - .env
+    volumes:
+      - ./db/data/:/var/lib/mysql
+      - type: bind
+        source: ./db/init.sql
+        target: /init.sql
+

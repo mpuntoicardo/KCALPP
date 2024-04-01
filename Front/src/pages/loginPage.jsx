@@ -6,6 +6,8 @@ import {Link,Redirect} from 'react-router-dom'
 import './signupPage.css'
 import Landing_SVG from '../components/Landing_SVG';
 
+const URL = "http://localhost:5000/login"
+
 const loginPage = () => {
 
     const [user, setUser] = useState({
@@ -21,7 +23,7 @@ const loginPage = () => {
         event.preventDefault()
         console.log(user)
         try{
-            const response = await fetch('TODO/URL',{
+            const response = await fetch(URL,{
                 method: 'POST',
                 mode:'cors',
                 headers:{
