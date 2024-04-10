@@ -7,10 +7,10 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
-  setupIonicReact
+  setupIonicReact, 
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
+import { ellipse, square, triangle, homeOutline, pizzaOutline } from 'ionicons/icons';
 
 import Landing from './pages/Landing.jsx'
 import Login from './pages/loginPage.jsx'
@@ -35,6 +35,9 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import HomePage from './pages/HomePage.jsx';
 import Signup from './pages/signupPage.jsx'
+import foodPage from './pages/foodPage.jsx';
+
+import Tabs from './components/Tabs.jsx';
 
 setupIonicReact();
 
@@ -42,10 +45,12 @@ const App = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/" component={Landing}/>
-        <Route path = "/login" component={Login}/>
-        <Route path = "/signup" component={Signup}/>
-        <Route path = "/home" component={HomePage}/>
+          <Route exact path="/" component={Landing}/>
+          <Route exact path = "/login" component={Login}/>
+          <Route exact path = "/signup" component={Signup}/>
+          <Route path="/home" component={Tabs}/>
+          <Route path="/foods" component={Tabs}/>
+          <Route path="/upload" component={Tabs}/>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

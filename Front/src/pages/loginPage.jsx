@@ -6,7 +6,7 @@ import {Link,Redirect} from 'react-router-dom'
 import './signupPage.css'
 import Landing_SVG from '../components/Landing_SVG';
 
-const URL = "http://localhost:5000/login"
+const URL = "http://localhost:5001/login"
 
 const loginPage = () => {
 
@@ -32,6 +32,7 @@ const loginPage = () => {
                 body: JSON.stringify(user)
             })
 
+            console.log(response)
             if(response.ok){
                 setRedirect(true)
             }

@@ -1,2 +1,4 @@
 /back/db/data
 /front/.vscode
+
+__pycache__/*

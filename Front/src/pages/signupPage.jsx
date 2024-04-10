@@ -6,7 +6,7 @@ import Input from '../components/Input'
 import './signupPage.css'
 import Landing_SVG from '../components/Landing_SVG'
 
-const URL = "http://localhost:5000/register"
+const URL = "http://localhost:5001/register"
 
 
 const SignupPage = () => {
@@ -37,7 +37,6 @@ const SignupPage = () => {
                 },
                 body: JSON.stringify(user)
             })
-
             if(response.ok){
                 setRedirect(true)
             }
