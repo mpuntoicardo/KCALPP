@@ -2,3 +2,6 @@ Flask
 mysql-connector-python
 flask-cors
 PyJWT
+boto3
+requests
+xmltodict

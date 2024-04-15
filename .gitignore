@@ -1,4 +1,5 @@
 /back/db/data
+/back/app/__pycache__
+/back/app/tmp
 /front/.vscode
-
 __pycache__/*
