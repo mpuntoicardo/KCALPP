@@ -9,7 +9,7 @@ from functools import wraps
 from flask_cors import CORS, cross_origin
 import boto3
 from werkzeug.utils import secure_filename
-from bedca import searchFood
+from bedca import footDetails, searchFood
 import xmltodict
 import json
 
@@ -17,11 +17,7 @@ import json
 app = Flask(__name__)
 cors = CORS(app)
 db = DatabaseConnection()
-s3 = boto3.client(
-    's3',
-    aws_access_key_id="AKIA3SRDDN242USLEFED",
-    aws_secret_access_key = "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"
-    )
+
 
 app.config['SECRET_KEY'] = '9a8ac0b100300d6c2b38dd30d7e3cb0b20e8668c427f366cf43a3c08f4743dd2'
 
@@ -204,6 +200,22 @@ def search_food():
         return jsonify({'error': 'Indica el alimento a buscar'}), 400
 
     result = searchFood(query)
+    result = xmltodict.parse(result)
+    
+    if not result['foodresponse']:
+        return jsonify({'error': 'No se ha encontrado ningún resultado'}), 400
+
+    return jsonify(result["foodresponse"]), 200
+
+@app.route('/food/<foodId>', methods=['GET'])
+@token_required
+def search_food_details(foodId):
+    query = foodId
+
+    if not query:
+        return jsonify({'error': 'Indica el alimento a buscar'}), 400
+
+    result = footDetails(query)
     result = xmltodict.parse(result)
     
     if not result['foodresponse']:

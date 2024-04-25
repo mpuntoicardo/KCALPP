@@ -120,7 +120,7 @@ def footDetails(foodId):
             <atribute1 name="f_id"/>
         </cond1>
         <relation type="EQUAL"/>
-        <cond3>2402</cond3>
+        <cond3>""" +foodId+ """</cond3>
     </condition>
     <condition>
         <cond1>
@@ -137,3 +137,5 @@ def footDetails(foodId):
     
     r = requests.post(url, headers=headers, data=body, verify=False)
     print(r.text)
+    return r.text
+    

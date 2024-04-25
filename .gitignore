@@ -3,3 +3,4 @@
 /back/app/tmp
 /front/.vscode
 __pycache__/*
+back/app/__pycache__/db.cpython-312.pyc
