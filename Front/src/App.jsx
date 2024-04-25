@@ -38,6 +38,7 @@ import Signup from './pages/signupPage.jsx'
 import foodPage from './pages/foodPage.jsx';
 
 import Tabs from './components/Tabs.jsx';
+import PrivateRoute from './utils/PrivateRoute.jsx';
 
 setupIonicReact();
 
@@ -48,9 +49,9 @@ const App = () => (
           <Route exact path="/" component={Landing}/>
           <Route exact path = "/login" component={Login}/>
           <Route exact path = "/signup" component={Signup}/>
-          <Route path="/home" component={Tabs}/>
-          <Route path="/foods" component={Tabs}/>
-          <Route path="/upload" component={Tabs}/>
+          <PrivateRoute path="/home" component={Tabs}/>
+          <PrivateRoute path="/foods" component={Tabs}/>
+          <PrivateRoute path="/upload" component={Tabs}/>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
