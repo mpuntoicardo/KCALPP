@@ -134,6 +134,7 @@ def upload_image():
         return jsonify({'error': 'There is no image!'}), 400
     
     image = request.files['image']
+    name = request.data.get['name']
     filename = secure_filename(image.filename)
     
     image.save(os.path.join("tmp", filename))
@@ -149,7 +150,7 @@ def upload_image():
 
         data = '{}'
 
-        cursor.execute("INSERT INTO history (user_id, url, data) VALUES (%s, %s, %s)",
+        cursor.execute("INSERT INTO history (user_id, name, url, data) VALUES (%s, %s, %s, %s)",
                        (str(user_id[0]), url, data))
         connection.commit()
 
@@ -172,7 +173,7 @@ def history():
     cursor = connection.cursor()
     
     try:
-        cursor.execute("SELECT url, created_at, data FROM history WHERE user_id = (select id from user where email=%s) order by created_at desc", (email,))
+        cursor.execute("SELECT url, created_at, name, data FROM history WHERE user_id = (select id from user where email=%s) order by created_at desc", (email,))
         data = cursor.fetchall()
 
         history = []
@@ -180,7 +181,8 @@ def history():
             aux = {}
             aux['url'] = d[0]
             aux['created_at'] = d[1]
-            aux['data'] = d[2]
+            aux['name'] = d[2]
+            aux['data'] = d[3]
             history.append(aux)
 
         return jsonify({'history': history}), 200

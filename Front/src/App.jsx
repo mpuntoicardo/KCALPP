@@ -39,6 +39,7 @@ import foodPage from './pages/foodPage.jsx';
 
 import Tabs from './components/Tabs.jsx';
 import PrivateRoute from './utils/PrivateRoute.jsx';
+import foodDetails from './pages/foodDetails.jsx';
 
 setupIonicReact();
 
@@ -52,6 +53,7 @@ const App = () => (
           <PrivateRoute path="/home" component={Tabs}/>
           <PrivateRoute path="/foods" component={Tabs}/>
           <PrivateRoute path="/upload" component={Tabs}/>
+          <PrivateRoute path="/foods/:foodId" component={Tabs}/>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

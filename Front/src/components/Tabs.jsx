@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import HomePage from '../pages/HomePage.jsx'; // Adjust path as necessary
 import foodPage from '../pages/foodPage.jsx'; // Adjust path as necessary
 import photoPage from '../pages/photoPage.jsx';
+import foodDetails from '../pages/foodDetails.jsx';
 
 const Tabs = () => (
   <IonTabs>
@@ -12,6 +13,7 @@ const Tabs = () => (
       <Route exact path="/home" component={HomePage}/>
       <Route exact path="/foods" component={foodPage} />
       <Route exact path="/upload" component={photoPage}/>
+      <Route path="/foods/:foodId" component={foodDetails}/>
     </IonRouterOutlet>
     <IonTabBar slot="bottom">
       <IonTabButton tab="home" href="/home">

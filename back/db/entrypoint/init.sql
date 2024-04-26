@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS HISTORY(
     id int auto_increment,
     user_id int not null,
     created_at date default (current_date),
+    name varchar(255) not null,
     url varchar(255) not null,
     data json not null,
     FOREIGN KEY (USER_ID) REFERENCES USER(ID),

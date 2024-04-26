@@ -34,7 +34,8 @@ const loginPage = () => {
                 body: JSON.stringify(user)
             })
             if(response.ok){
-                const data = response.json()
+                const data = await response.json()
+                console.log(data)
                 Cookies.set('token',data.token,{ expires: 7, secure: true, sameSite: 'strict' });
                 setRedirect(true)
             }else{
