@@ -7,7 +7,7 @@ import Cookies from 'js-cookie'
 const HomePage = () => {
   
   const [cookie , setcookies] = useState('')
-  const [data, setData] = useState('')
+  const [data, setData] = useState([])
 
   useEffect(()=>{
     setcookies(Cookies.get('token'))
@@ -21,39 +21,36 @@ const HomePage = () => {
           "Content-Type": "application/json",
           "Authorization": "Auth "+cookie
         }
-    }).then((response)=> response.json()).then((newData)=>console.log(newData))
+    }).then((response)=> response.json()).then((newData)=>{
+      setData(newData)
+      console.log(newData)}
+  )
     }
   },[cookie])
   
   return (
     <IonPage>
       <IonHeader>
-                <IonToolbar>
-                  <IonTitle>Dashboard</IonTitle>
-                </IonToolbar>
-            </IonHeader>   
+        <IonToolbar>
+          <IonTitle>Historial</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <IonContent>
-          <IonCard color="light" routerLink='/foods' >
-            <IonCardHeader>
-              <IonCardTitle>Listado de comidas</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>Toda la información que necesitas saber de tus alimentos.</IonCardContent>
-          </IonCard>
-      <IonCard color="light" routerLink='/upload'>
-        <IonCardHeader>
-          <IonCardTitle>Analizar Comida</IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent>Solo con subir una foto, tendrás toda la información necesaria.</IonCardContent>
-      </IonCard>
-      <IonCard color="light">
-        <IonCardHeader>
-          <IonCardTitle>Historial de búsquedas</IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent>Histórico de las fotos que has subido junto con sus datos</IonCardContent>
-      </IonCard>
+        {
+        data?.history?.length > 0 ? (
+          data.history.map((el, i) => (
+            <IonCard color="light" routerLink="/foods" key={i}>
+              <IonCardHeader>
+                <IonCardTitle>{el.name}</IonCardTitle>
+              </IonCardHeader>
+            </IonCard>
+          ))
+        ) : (
+          <IonTitle>No hay búsquedas previas</IonTitle>
+        )}
       </IonContent>
     </IonPage>
-  )
+  );
 }
 
 export default HomePage

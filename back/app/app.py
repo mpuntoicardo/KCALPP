@@ -12,11 +12,13 @@ from werkzeug.utils import secure_filename
 from bedca import footDetails, searchFood
 import xmltodict
 import json
+import time
 
 
 app = Flask(__name__)
 cors = CORS(app)
 db = DatabaseConnection()
+
 
 
 app.config['SECRET_KEY'] = '9a8ac0b100300d6c2b38dd30d7e3cb0b20e8668c427f366cf43a3c08f4743dd2'
@@ -124,23 +126,26 @@ def protected():
 
 
 @app.route('/image', methods=['POST'])
+@cross_origin()
 @token_required
-def upload_image():
+def upload_image():    
     token = request.headers.get('Authorization').split(' ')[1]
     data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
     email = str(data['email'])
 
-    if not 'image' in request.files:
+    image = request.files['image']
+    print(image)
+    if not image:
         return jsonify({'error': 'There is no image!'}), 400
     
-    image = request.files['image']
-    name = request.data.get['name']
-    filename = secure_filename(image.filename)
-    
-    image.save(os.path.join("tmp", filename))
     connection = db.connect()
     cursor = connection.cursor()
     try:
+        name = request.form.get('name')
+        filename = secure_filename(str(time.time())+'.png')
+        
+
+        image.save(os.path.join("tmp", filename))
         
         s3.upload_file(os.path.join("tmp", filename), "kcalpp", filename)
         url = f"https://kcalpp.s3.amazonaws.com/{filename}"
@@ -151,7 +156,7 @@ def upload_image():
         data = '{}'
 
         cursor.execute("INSERT INTO history (user_id, name, url, data) VALUES (%s, %s, %s, %s)",
-                       (str(user_id[0]), url, data))
+                       (str(user_id[0]), name,url, data))
         connection.commit()
 
         return jsonify({'image': url}), 200
