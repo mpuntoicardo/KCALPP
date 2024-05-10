@@ -10,6 +10,8 @@ from flask_cors import CORS, cross_origin
 import boto3
 from werkzeug.utils import secure_filename
 from bedca import footDetails, searchFood
+from image import process
+from logmeal import upload_logmeal, get_info
 import xmltodict
 import json
 import time
@@ -134,7 +136,6 @@ def upload_image():
     email = str(data['email'])
 
     image = request.files['image']
-    print(image)
     if not image:
         return jsonify({'error': 'There is no image!'}), 400
     
@@ -142,21 +143,22 @@ def upload_image():
     cursor = connection.cursor()
     try:
         name = request.form.get('name')
-        filename = secure_filename(str(time.time())+'.png')
+        filename = secure_filename(str(time.time()))
         
 
-        image.save(os.path.join("tmp", filename))
+        image.save(os.path.join("tmp", filename + '.png'))
+        process(filename + '.png')
         
-        s3.upload_file(os.path.join("tmp", filename), "kcalpp", filename)
-        url = f"https://kcalpp.s3.amazonaws.com/{filename}"
-        print(type(email))
+        s3.upload_file(os.path.join("tmp", filename + '.jpg'), "kcalpp", filename + '.jpg')
+        url = f"https://kcalpp.s3.amazonaws.com/{filename}.jpg"
         cursor.execute("SELECT id FROM user WHERE email = %s", (email,))
         user_id = cursor.fetchone()
 
-        data = '{}'
+        imageId = upload_logmeal(os.path.join("tmp", filename + '.jpg'))
+        data = get_info(imageId)
 
         cursor.execute("INSERT INTO history (user_id, name, url, data) VALUES (%s, %s, %s, %s)",
-                       (str(user_id[0]), name,url, data))
+                       (str(user_id[0]), name,url, str(json.dumps(data))))
         connection.commit()
 
         return jsonify({'image': url}), 200

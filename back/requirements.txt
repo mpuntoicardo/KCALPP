@@ -5,3 +5,4 @@ PyJWT
 boto3
 requests
 xmltodict
+Pillow
