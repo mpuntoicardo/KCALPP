@@ -54,6 +54,7 @@ const App = () => (
           <PrivateRoute path="/foods" component={Tabs}/>
           <PrivateRoute path="/upload" component={Tabs}/>
           <PrivateRoute path="/foods/:foodId" component={Tabs}/>
+          <PrivateRoute path="/home/search" component={Tabs}/>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

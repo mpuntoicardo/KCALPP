@@ -189,7 +189,7 @@ const Landing_SVG = (props) => {
 <rect width="1920" height="1080" fill="none"/>
 </clipPath>
 </defs>
-</svg>
+    </svg>
 
   );
 };

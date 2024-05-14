@@ -161,7 +161,7 @@ def upload_image():
                        (str(user_id[0]), name,url, str(json.dumps(data))))
         connection.commit()
 
-        return jsonify({'image': url}), 200
+        return jsonify({'image': url, 'data':data}), 200
 
     except Exception as e:
         print(e)
